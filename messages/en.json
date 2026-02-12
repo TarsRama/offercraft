@@ -1,0 +1,245 @@
+{
+  "common": {
+    "appName": "OfferCraft",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "filter": "Filter",
+    "filters": "Filters",
+    "view": "View",
+    "viewAll": "View All",
+    "viewDetails": "View Details",
+    "duplicate": "Duplicate",
+    "send": "Send",
+    "back": "Back",
+    "next": "Next",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "actions": "Actions",
+    "status": "Status",
+    "date": "Date",
+    "total": "Total",
+    "totalValue": "Total Value",
+    "comingSoon": "This section is coming soon",
+    "futureUpdate": "Settings for this section will be available in a future update.",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "month": "month"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "offers": "Offers",
+    "clients": "Clients",
+    "templates": "Templates",
+    "settings": "Settings",
+    "notifications": "Notifications",
+    "signOut": "Sign Out"
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Sign Up",
+    "logout": "Sign Out",
+    "welcomeBack": "Welcome back",
+    "signInToContinue": "Sign in to your account to continue",
+    "createAccount": "Create an account",
+    "createAccountDesc": "Start your 14-day free trial. No credit card required.",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "companyName": "Company Name",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "invalidCredentials": "Invalid email or password",
+    "welcomeBackMsg": "Welcome back!",
+    "somethingWrong": "Something went wrong. Please try again.",
+    "passwordsDontMatch": "Passwords don't match",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "passwordRequirements": "At least 8 characters with uppercase, lowercase, and number",
+    "accountCreated": "Account created! Please sign in.",
+    "termsAgree": "By creating an account, you agree to our",
+    "termsOfService": "Terms of Service",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcomeBack": "Welcome back!",
+    "todayOverview": "Here's what's happening with your offers today.",
+    "totalOffers": "Total Offers",
+    "activeClients": "Active Clients",
+    "winRate": "Win Rate",
+    "pendingOffers": "Pending Offers",
+    "recentOffers": "Recent Offers",
+    "latestProposals": "Your latest proposals",
+    "quickActions": "Quick Actions",
+    "quickActionsDesc": "Common tasks to get you started",
+    "createNewOffer": "Create New Offer",
+    "createNewOfferDesc": "Start a new proposal from scratch",
+    "addNewClient": "Add New Client",
+    "addNewClientDesc": "Register a new client in your system",
+    "manageTemplates": "Manage Templates",
+    "manageTemplatesDesc": "Create and edit article templates"
+  },
+  "offers": {
+    "title": "Offers",
+    "description": "Manage your proposals and track their status",
+    "newOffer": "New Offer",
+    "createOffer": "Create Offer",
+    "allOffers": "All Offers",
+    "offersFound": "{count} offer(s) found",
+    "searchOffers": "Search offers...",
+    "searchPlaceholder": "Search offers, clients...",
+    "noOffers": "No offers found",
+    "noOffersSearch": "Try adjusting your search",
+    "noOffersStart": "Get started by creating your first offer",
+    "validUntil": "Valid until {date}",
+    "status": {
+      "draft": "Draft",
+      "pendingApproval": "Pending",
+      "sent": "Sent",
+      "viewed": "Viewed",
+      "accepted": "Accepted",
+      "rejected": "Rejected",
+      "won": "Won",
+      "lost": "Lost"
+    }
+  },
+  "clients": {
+    "title": "Clients",
+    "description": "Manage your client relationships",
+    "addClient": "Add Client",
+    "searchClients": "Search clients...",
+    "noClients": "No clients found",
+    "noClientsSearch": "Try adjusting your search",
+    "noClientsStart": "Get started by adding your first client",
+    "offers": "Offers",
+    "status": {
+      "lead": "Lead",
+      "active": "Active",
+      "inactive": "Inactive"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Manage your account and company settings",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "savedSuccess": "Settings saved successfully",
+    "sections": {
+      "company": "Company",
+      "profile": "Profile",
+      "notifications": "Notifications",
+      "appearance": "Appearance",
+      "localization": "Localization",
+      "billing": "Billing",
+      "security": "Security"
+    },
+    "company": {
+      "title": "Company Settings",
+      "description": "Update your company information and branding",
+      "companyName": "Company Name",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Address",
+      "vatNumber": "VAT Number",
+      "branding": "Branding",
+      "primaryColor": "Primary Color",
+      "logo": "Logo"
+    },
+    "profile": {
+      "title": "Profile Settings",
+      "description": "Update your personal information",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "localization": {
+      "title": "Localization",
+      "description": "Configure language and regional settings",
+      "defaultLanguage": "Default Language",
+      "defaultCurrency": "Default Currency",
+      "dateFormat": "Date Format",
+      "timezone": "Timezone"
+    }
+  },
+  "header": {
+    "searchPlaceholder": "Search offers, clients...",
+    "toggleTheme": "Toggle theme",
+    "profile": "Profile",
+    "language": "Language"
+  },
+  "language": {
+    "title": "Language",
+    "english": "English",
+    "albanian": "Albanian"
+  },
+  "landing": {
+    "heroTitle": "Create Proposals That",
+    "heroTitleHighlight": "Win Clients",
+    "heroDescription": "Professional offer and proposal management for construction, engineering, and professional services. Save time, look professional, close more deals.",
+    "startFreeTrial": "Start Free Trial",
+    "featuresTitle": "Everything You Need",
+    "featuresDescription": "Powerful features to help you create professional proposals faster and win more business.",
+    "features": {
+      "proposals": {
+        "title": "Professional Proposals",
+        "description": "Create stunning, branded proposals that win clients."
+      },
+      "clients": {
+        "title": "Client Management",
+        "description": "Keep all client information organized in one place."
+      },
+      "analytics": {
+        "title": "Analytics & Insights",
+        "description": "Track proposal views, acceptance rates, and more."
+      },
+      "security": {
+        "title": "Multi-tenant Security",
+        "description": "Enterprise-grade security for your business data."
+      },
+      "fast": {
+        "title": "Fast & Efficient",
+        "description": "Templates and automation to save hours of work."
+      },
+      "multilang": {
+        "title": "Multi-language",
+        "description": "Create proposals in any language your clients speak."
+      }
+    },
+    "pricingTitle": "Simple, Transparent Pricing",
+    "pricingDescription": "Choose the plan that fits your business. All plans include a 14-day free trial.",
+    "mostPopular": "Most Popular",
+    "ctaTitle": "Ready to Get Started?",
+    "ctaDescription": "Join thousands of professionals using OfferCraft to win more business.",
+    "footer": "All rights reserved.",
+    "pricing": {
+      "starter": {
+        "name": "Starter",
+        "price": "€29",
+        "description": "Perfect for freelancers",
+        "features": ["5 offers/month", "1 user", "Basic templates", "Email support"]
+      },
+      "professional": {
+        "name": "Professional",
+        "price": "€79",
+        "description": "For growing teams",
+        "features": ["Unlimited offers", "5 users", "Custom branding", "Priority support", "Analytics"]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Custom",
+        "description": "For large organizations",
+        "features": ["Everything in Pro", "Unlimited users", "API access", "SSO", "Dedicated support"]
+      }
+    },
+    "dashboardPreview": "Dashboard Preview"
+  }
+}

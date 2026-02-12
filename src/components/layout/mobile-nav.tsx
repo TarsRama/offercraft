@@ -3,17 +3,10 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { X, LayoutDashboard, FileText, Users, Package, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-
-const navItems = [
-  { title: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { title: "Offers", href: "/dashboard/offers", icon: FileText },
-  { title: "Clients", href: "/dashboard/clients", icon: Users },
-  { title: "Templates", href: "/dashboard/templates", icon: Package },
-  { title: "Settings", href: "/dashboard/settings", icon: Settings },
-];
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -22,6 +15,15 @@ interface MobileNavProps {
 
 export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   const pathname = usePathname();
+  const t = useTranslations("nav");
+
+  const navItems = [
+    { title: t("dashboard"), href: "/dashboard", icon: LayoutDashboard },
+    { title: t("offers"), href: "/dashboard/offers", icon: FileText },
+    { title: t("clients"), href: "/dashboard/clients", icon: Users },
+    { title: t("templates"), href: "/dashboard/templates", icon: Package },
+    { title: t("settings"), href: "/dashboard/settings", icon: Settings },
+  ];
 
   return (
     <AnimatePresence>

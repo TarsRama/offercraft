@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { 
   Building2, 
   User, 
@@ -19,35 +20,37 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 
-const settingsSections = [
-  { id: "company", title: "Company", icon: Building2 },
-  { id: "profile", title: "Profile", icon: User },
-  { id: "notifications", title: "Notifications", icon: Bell },
-  { id: "appearance", title: "Appearance", icon: Palette },
-  { id: "localization", title: "Localization", icon: Globe },
-  { id: "billing", title: "Billing", icon: CreditCard },
-  { id: "security", title: "Security", icon: Shield },
-];
-
 export default function SettingsPage() {
   const [activeSection, setActiveSection] = useState("company");
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations("settings");
+  const tCommon = useTranslations("common");
+
+  const settingsSections = [
+    { id: "company", title: t("sections.company"), icon: Building2 },
+    { id: "profile", title: t("sections.profile"), icon: User },
+    { id: "notifications", title: t("sections.notifications"), icon: Bell },
+    { id: "appearance", title: t("sections.appearance"), icon: Palette },
+    { id: "localization", title: t("sections.localization"), icon: Globe },
+    { id: "billing", title: t("sections.billing"), icon: CreditCard },
+    { id: "security", title: t("sections.security"), icon: Shield },
+  ];
 
   const handleSave = async () => {
     setIsLoading(true);
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsLoading(false);
-    toast.success("Settings saved successfully");
+    toast.success(t("savedSuccess"));
   };
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight">Settings</h1>
+        <h1 className="text-2xl font-bold tracking-tight">{t("title")}</h1>
         <p className="text-muted-foreground">
-          Manage your account and company settings
+          {t("description")}
         </p>
       </div>
 
@@ -85,47 +88,47 @@ export default function SettingsPage() {
             {activeSection === "company" && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Company Settings</CardTitle>
+                  <CardTitle>{t("company.title")}</CardTitle>
                   <CardDescription>
-                    Update your company information and branding
+                    {t("company.description")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="companyName">Company Name</Label>
+                    <Label htmlFor="companyName">{t("company.companyName")}</Label>
                     <Input id="companyName" placeholder="Acme Inc." defaultValue="Acme Inc." />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">{t("company.email")}</Label>
                       <Input id="email" type="email" placeholder="contact@company.com" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Phone</Label>
+                      <Label htmlFor="phone">{t("company.phone")}</Label>
                       <Input id="phone" placeholder="+1 234 567 890" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="address">Address</Label>
+                    <Label htmlFor="address">{t("company.address")}</Label>
                     <Input id="address" placeholder="123 Business St, City" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="vatNumber">VAT Number</Label>
+                    <Label htmlFor="vatNumber">{t("company.vatNumber")}</Label>
                     <Input id="vatNumber" placeholder="VAT123456789" />
                   </div>
                   <Separator />
                   <div className="space-y-4">
-                    <h4 className="font-medium">Branding</h4>
+                    <h4 className="font-medium">{t("company.branding")}</h4>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="primaryColor">Primary Color</Label>
+                        <Label htmlFor="primaryColor">{t("company.primaryColor")}</Label>
                         <div className="flex gap-2">
                           <Input id="primaryColor" defaultValue="#3B82F6" />
                           <div className="w-10 h-10 rounded-md bg-primary border" />
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="logo">Logo</Label>
+                        <Label htmlFor="logo">{t("company.logo")}</Label>
                         <Input id="logo" type="file" accept="image/*" />
                       </div>
                     </div>
@@ -137,28 +140,28 @@ export default function SettingsPage() {
             {activeSection === "profile" && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Profile Settings</CardTitle>
+                  <CardTitle>{t("profile.title")}</CardTitle>
                   <CardDescription>
-                    Update your personal information
+                    {t("profile.description")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name</Label>
+                      <Label htmlFor="firstName">{t("profile.firstName")}</Label>
                       <Input id="firstName" placeholder="John" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name</Label>
+                      <Label htmlFor="lastName">{t("profile.lastName")}</Label>
                       <Input id="lastName" placeholder="Doe" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="profileEmail">Email</Label>
+                    <Label htmlFor="profileEmail">{t("profile.email")}</Label>
                     <Input id="profileEmail" type="email" placeholder="john@company.com" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="profilePhone">Phone</Label>
+                    <Label htmlFor="profilePhone">{t("profile.phone")}</Label>
                     <Input id="profilePhone" placeholder="+1 234 567 890" />
                   </div>
                 </CardContent>
@@ -168,26 +171,26 @@ export default function SettingsPage() {
             {activeSection === "localization" && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Localization</CardTitle>
+                  <CardTitle>{t("localization.title")}</CardTitle>
                   <CardDescription>
-                    Configure language and regional settings
+                    {t("localization.description")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="language">Default Language</Label>
+                    <Label htmlFor="language">{t("localization.defaultLanguage")}</Label>
                     <Input id="language" defaultValue="English" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="currency">Default Currency</Label>
+                    <Label htmlFor="currency">{t("localization.defaultCurrency")}</Label>
                     <Input id="currency" defaultValue="EUR" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="dateFormat">Date Format</Label>
+                    <Label htmlFor="dateFormat">{t("localization.dateFormat")}</Label>
                     <Input id="dateFormat" defaultValue="DD/MM/YYYY" />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="timezone">Timezone</Label>
+                    <Label htmlFor="timezone">{t("localization.timezone")}</Label>
                     <Input id="timezone" defaultValue="Europe/London" />
                   </div>
                 </CardContent>
@@ -202,12 +205,12 @@ export default function SettingsPage() {
                 <CardHeader>
                   <CardTitle>{settingsSections.find(s => s.id === activeSection)?.title}</CardTitle>
                   <CardDescription>
-                    This section is coming soon
+                    {tCommon("comingSoon")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Settings for this section will be available in a future update.
+                    {tCommon("futureUpdate")}
                   </p>
                 </CardContent>
               </Card>
@@ -216,7 +219,7 @@ export default function SettingsPage() {
             <div className="mt-6 flex justify-end">
               <Button onClick={handleSave} disabled={isLoading}>
                 <Save className="h-4 w-4 mr-2" />
-                {isLoading ? "Saving..." : "Save Changes"}
+                {isLoading ? t("saving") : t("saveChanges")}
               </Button>
             </div>
           </motion.div>

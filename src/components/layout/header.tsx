@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { Bell, Search, Moon, Sun, Menu } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -14,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { getInitials } from "@/lib/utils";
 
 interface HeaderProps {
@@ -23,6 +25,8 @@ interface HeaderProps {
 export function Header({ onMobileMenuToggle }: HeaderProps) {
   const { data: session } = useSession();
   const { theme, setTheme } = useTheme();
+  const t = useTranslations("header");
+  const tNav = useTranslations("nav");
 
   const user = session?.user;
   const initials = user ? getInitials(user.firstName, user.lastName) : "??";
@@ -44,7 +48,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         <div className="relative w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search offers, clients..."
+            placeholder={t("searchPlaceholder")}
             className="pl-10 bg-muted/50"
           />
         </div>
@@ -52,6 +56,9 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
 
       {/* Right section */}
       <div className="flex items-center space-x-4">
+        {/* Language switcher */}
+        <LanguageSwitcher />
+
         {/* Theme toggle */}
         <Button
           variant="ghost"
@@ -60,7 +67,7 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
         >
           <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
+          <span className="sr-only">{t("toggleTheme")}</span>
         </Button>
 
         {/* Notifications */}
@@ -96,16 +103,16 @@ export function Header({ onMobileMenuToggle }: HeaderProps) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <a href="/dashboard/settings">Settings</a>
+              <a href="/dashboard/settings">{tNav("settings")}</a>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <a href="/dashboard/settings/profile">Profile</a>
+              <a href="/dashboard/settings/profile">{t("profile")}</a>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <form action="/api/auth/signout" method="POST" className="w-full">
                 <button type="submit" className="w-full text-left text-destructive">
-                  Sign out
+                  {tNav("signOut")}
                 </button>
               </form>
             </DropdownMenuItem>

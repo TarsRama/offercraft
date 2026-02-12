@@ -11,48 +11,10 @@ import {
   ArrowDownRight
 } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
-const stats = [
-  {
-    title: "Total Offers",
-    value: "128",
-    change: "+12%",
-    trend: "up",
-    icon: FileText,
-    color: "text-blue-500",
-    bgColor: "bg-blue-500/10",
-  },
-  {
-    title: "Active Clients",
-    value: "45",
-    change: "+8%",
-    trend: "up",
-    icon: Users,
-    color: "text-green-500",
-    bgColor: "bg-green-500/10",
-  },
-  {
-    title: "Win Rate",
-    value: "67%",
-    change: "+5%",
-    trend: "up",
-    icon: TrendingUp,
-    color: "text-purple-500",
-    bgColor: "bg-purple-500/10",
-  },
-  {
-    title: "Pending Offers",
-    value: "12",
-    change: "-2",
-    trend: "down",
-    icon: Clock,
-    color: "text-orange-500",
-    bgColor: "bg-orange-500/10",
-  },
-];
 
 const recentOffers = [
   {
@@ -98,20 +60,74 @@ const statusColors: Record<string, string> = {
 };
 
 export default function DashboardPage() {
+  const t = useTranslations("dashboard");
+  const tOffers = useTranslations("offers");
+  const tCommon = useTranslations("common");
+
+  const stats = [
+    {
+      title: t("totalOffers"),
+      value: "128",
+      change: "+12%",
+      trend: "up",
+      icon: FileText,
+      color: "text-blue-500",
+      bgColor: "bg-blue-500/10",
+    },
+    {
+      title: t("activeClients"),
+      value: "45",
+      change: "+8%",
+      trend: "up",
+      icon: Users,
+      color: "text-green-500",
+      bgColor: "bg-green-500/10",
+    },
+    {
+      title: t("winRate"),
+      value: "67%",
+      change: "+5%",
+      trend: "up",
+      icon: TrendingUp,
+      color: "text-purple-500",
+      bgColor: "bg-purple-500/10",
+    },
+    {
+      title: t("pendingOffers"),
+      value: "12",
+      change: "-2",
+      trend: "down",
+      icon: Clock,
+      color: "text-orange-500",
+      bgColor: "bg-orange-500/10",
+    },
+  ];
+
+  const getStatusLabel = (status: string) => {
+    const statusMap: Record<string, string> = {
+      DRAFT: tOffers("status.draft"),
+      SENT: tOffers("status.sent"),
+      VIEWED: tOffers("status.viewed"),
+      ACCEPTED: tOffers("status.accepted"),
+      REJECTED: tOffers("status.rejected"),
+    };
+    return statusMap[status] || status;
+  };
+
   return (
     <div className="space-y-6">
       {/* Welcome Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Welcome back!</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t("welcomeBack")}</h1>
           <p className="text-muted-foreground">
-            Here&apos;s what&apos;s happening with your offers today.
+            {t("todayOverview")}
           </p>
         </div>
         <Link href="/dashboard/offers/new">
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            New Offer
+            {tOffers("newOffer")}
           </Button>
         </Link>
       </div>
@@ -162,11 +178,11 @@ export default function DashboardPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>Recent Offers</CardTitle>
-                <CardDescription>Your latest proposals</CardDescription>
+                <CardTitle>{t("recentOffers")}</CardTitle>
+                <CardDescription>{t("latestProposals")}</CardDescription>
               </div>
               <Link href="/dashboard/offers">
-                <Button variant="outline" size="sm">View All</Button>
+                <Button variant="outline" size="sm">{tCommon("viewAll")}</Button>
               </Link>
             </CardHeader>
             <CardContent>
@@ -182,7 +198,7 @@ export default function DashboardPage() {
                     </div>
                     <div className="flex items-center gap-4">
                       <Badge variant={statusColors[offer.status] as any}>
-                        {offer.status}
+                        {getStatusLabel(offer.status)}
                       </Badge>
                       <div className="text-right">
                         <p className="font-medium">{offer.total}</p>
@@ -204,8 +220,8 @@ export default function DashboardPage() {
         >
           <Card>
             <CardHeader>
-              <CardTitle>Quick Actions</CardTitle>
-              <CardDescription>Common tasks to get you started</CardDescription>
+              <CardTitle>{t("quickActions")}</CardTitle>
+              <CardDescription>{t("quickActionsDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               <Link href="/dashboard/offers/new" className="block">
@@ -214,8 +230,8 @@ export default function DashboardPage() {
                     <FileText className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <p className="font-medium">Create New Offer</p>
-                    <p className="text-sm text-muted-foreground">Start a new proposal from scratch</p>
+                    <p className="font-medium">{t("createNewOffer")}</p>
+                    <p className="text-sm text-muted-foreground">{t("createNewOfferDesc")}</p>
                   </div>
                 </div>
               </Link>
@@ -225,8 +241,8 @@ export default function DashboardPage() {
                     <Users className="h-5 w-5 text-green-500" />
                   </div>
                   <div>
-                    <p className="font-medium">Add New Client</p>
-                    <p className="text-sm text-muted-foreground">Register a new client in your system</p>
+                    <p className="font-medium">{t("addNewClient")}</p>
+                    <p className="text-sm text-muted-foreground">{t("addNewClientDesc")}</p>
                   </div>
                 </div>
               </Link>
@@ -236,8 +252,8 @@ export default function DashboardPage() {
                     <TrendingUp className="h-5 w-5 text-purple-500" />
                   </div>
                   <div>
-                    <p className="font-medium">Manage Templates</p>
-                    <p className="text-sm text-muted-foreground">Create and edit article templates</p>
+                    <p className="font-medium">{t("manageTemplates")}</p>
+                    <p className="text-sm text-muted-foreground">{t("manageTemplatesDesc")}</p>
                   </div>
                 </div>
               </Link>

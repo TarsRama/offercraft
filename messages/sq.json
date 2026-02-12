@@ -1,0 +1,245 @@
+{
+  "common": {
+    "appName": "OfferCraft",
+    "loading": "Duke u ngarkuar...",
+    "save": "Ruaj",
+    "cancel": "Anulo",
+    "delete": "Fshi",
+    "edit": "Ndrysho",
+    "create": "Krijo",
+    "search": "Kërko",
+    "filter": "Filtro",
+    "filters": "Filtrat",
+    "view": "Shiko",
+    "viewAll": "Shiko të gjitha",
+    "viewDetails": "Shiko detajet",
+    "duplicate": "Dupliko",
+    "send": "Dërgo",
+    "back": "Kthehu",
+    "next": "Tjetër",
+    "yes": "Po",
+    "no": "Jo",
+    "close": "Mbyll",
+    "actions": "Veprimet",
+    "status": "Statusi",
+    "date": "Data",
+    "total": "Totali",
+    "totalValue": "Vlera totale",
+    "comingSoon": "Kjo pjesë do të vijë së shpejti",
+    "futureUpdate": "Cilësimet për këtë seksion do të jenë të disponueshme në një përditësim të ardhshëm.",
+    "getStarted": "Fillo tani",
+    "learnMore": "Mëso më shumë",
+    "month": "muaj"
+  },
+  "nav": {
+    "dashboard": "Paneli",
+    "offers": "Ofertat",
+    "clients": "Klientët",
+    "templates": "Shabllonet",
+    "settings": "Cilësimet",
+    "notifications": "Njoftimet",
+    "signOut": "Dil"
+  },
+  "auth": {
+    "login": "Hyr",
+    "register": "Regjistrohu",
+    "logout": "Dil",
+    "welcomeBack": "Mirë se u ktheve",
+    "signInToContinue": "Hyni në llogarinë tuaj për të vazhduar",
+    "createAccount": "Krijo një llogari",
+    "createAccountDesc": "Fillo provën tuaj 14-ditore falas. Nuk kërkohet kartë krediti.",
+    "email": "Email",
+    "password": "Fjalëkalimi",
+    "confirmPassword": "Konfirmo fjalëkalimin",
+    "firstName": "Emri",
+    "lastName": "Mbiemri",
+    "companyName": "Emri i kompanisë",
+    "noAccount": "Nuk keni llogari?",
+    "haveAccount": "Keni tashmë një llogari?",
+    "invalidCredentials": "Email ose fjalëkalim i pavlefshëm",
+    "welcomeBackMsg": "Mirë se u ktheve!",
+    "somethingWrong": "Diçka shkoi keq. Ju lutem provoni përsëri.",
+    "passwordsDontMatch": "Fjalëkalimet nuk përputhen",
+    "passwordMinLength": "Fjalëkalimi duhet të ketë të paktën 8 karaktere",
+    "passwordRequirements": "Të paktën 8 karaktere me shkronja të mëdha, të vogla dhe numra",
+    "accountCreated": "Llogaria u krijua! Ju lutem hyni.",
+    "termsAgree": "Duke krijuar një llogari, ju pranoni",
+    "termsOfService": "Kushtet e Shërbimit",
+    "and": "dhe",
+    "privacyPolicy": "Politikën e Privatësisë"
+  },
+  "dashboard": {
+    "title": "Paneli",
+    "welcomeBack": "Mirë se u ktheve!",
+    "todayOverview": "Ja çfarë po ndodh me ofertat tuaja sot.",
+    "totalOffers": "Ofertat totale",
+    "activeClients": "Klientët aktivë",
+    "winRate": "Shkalla e fitimit",
+    "pendingOffers": "Ofertat në pritje",
+    "recentOffers": "Ofertat e fundit",
+    "latestProposals": "Propozimet tuaja të fundit",
+    "quickActions": "Veprime të shpejta",
+    "quickActionsDesc": "Detyra të zakonshme për të filluar",
+    "createNewOffer": "Krijo ofertë të re",
+    "createNewOfferDesc": "Fillo një propozim të ri nga fillimi",
+    "addNewClient": "Shto klient të ri",
+    "addNewClientDesc": "Regjistro një klient të ri në sistemin tuaj",
+    "manageTemplates": "Menaxho shabllonet",
+    "manageTemplatesDesc": "Krijo dhe ndrysho shabllonet e artikujve"
+  },
+  "offers": {
+    "title": "Ofertat",
+    "description": "Menaxhoni propozimet tuaja dhe ndiqni statusin e tyre",
+    "newOffer": "Ofertë e re",
+    "createOffer": "Krijo ofertë",
+    "allOffers": "Të gjitha ofertat",
+    "offersFound": "{count} ofertë(a) u gjetën",
+    "searchOffers": "Kërko ofertat...",
+    "searchPlaceholder": "Kërko ofertat, klientët...",
+    "noOffers": "Nuk u gjetën oferta",
+    "noOffersSearch": "Provoni të rregulloni kërkimin tuaj",
+    "noOffersStart": "Filloni duke krijuar ofertën tuaj të parë",
+    "validUntil": "E vlefshme deri më {date}",
+    "status": {
+      "draft": "Draft",
+      "pendingApproval": "Në pritje",
+      "sent": "Dërguar",
+      "viewed": "Parë",
+      "accepted": "Pranuar",
+      "rejected": "Refuzuar",
+      "won": "Fituar",
+      "lost": "Humbur"
+    }
+  },
+  "clients": {
+    "title": "Klientët",
+    "description": "Menaxhoni marrëdhëniet me klientët tuaj",
+    "addClient": "Shto klient",
+    "searchClients": "Kërko klientët...",
+    "noClients": "Nuk u gjetën klientë",
+    "noClientsSearch": "Provoni të rregulloni kërkimin tuaj",
+    "noClientsStart": "Filloni duke shtuar klientin tuaj të parë",
+    "offers": "Ofertat",
+    "status": {
+      "lead": "Lead",
+      "active": "Aktiv",
+      "inactive": "Joaktiv"
+    }
+  },
+  "settings": {
+    "title": "Cilësimet",
+    "description": "Menaxhoni llogarinë tuaj dhe cilësimet e kompanisë",
+    "saveChanges": "Ruaj ndryshimet",
+    "saving": "Duke ruajtur...",
+    "savedSuccess": "Cilësimet u ruajtën me sukses",
+    "sections": {
+      "company": "Kompania",
+      "profile": "Profili",
+      "notifications": "Njoftimet",
+      "appearance": "Pamja",
+      "localization": "Lokalizimi",
+      "billing": "Faturimi",
+      "security": "Siguria"
+    },
+    "company": {
+      "title": "Cilësimet e kompanisë",
+      "description": "Përditësoni informacionin dhe markën e kompanisë suaj",
+      "companyName": "Emri i kompanisë",
+      "email": "Email",
+      "phone": "Telefoni",
+      "address": "Adresa",
+      "vatNumber": "Numri i TVSH-së",
+      "branding": "Marka",
+      "primaryColor": "Ngjyra kryesore",
+      "logo": "Logo"
+    },
+    "profile": {
+      "title": "Cilësimet e profilit",
+      "description": "Përditësoni informacionin tuaj personal",
+      "firstName": "Emri",
+      "lastName": "Mbiemri",
+      "email": "Email",
+      "phone": "Telefoni"
+    },
+    "localization": {
+      "title": "Lokalizimi",
+      "description": "Konfiguroni cilësimet e gjuhës dhe rajonit",
+      "defaultLanguage": "Gjuha e paracaktuar",
+      "defaultCurrency": "Monedha e paracaktuar",
+      "dateFormat": "Formati i datës",
+      "timezone": "Zona kohore"
+    }
+  },
+  "header": {
+    "searchPlaceholder": "Kërko ofertat, klientët...",
+    "toggleTheme": "Ndrysho temën",
+    "profile": "Profili",
+    "language": "Gjuha"
+  },
+  "language": {
+    "title": "Gjuha",
+    "english": "Anglisht",
+    "albanian": "Shqip"
+  },
+  "landing": {
+    "heroTitle": "Krijo Propozime që",
+    "heroTitleHighlight": "Fitojnë Klientë",
+    "heroDescription": "Menaxhim profesional i ofertave dhe propozimeve për ndërtim, inxhinieri dhe shërbime profesionale. Kurse kohë, duket profesional, mbyll më shumë marrëveshje.",
+    "startFreeTrial": "Fillo Provën Falas",
+    "featuresTitle": "Gjithçka që ju nevojitet",
+    "featuresDescription": "Karakteristika të fuqishme për t'ju ndihmuar të krijoni propozime profesionale më shpejt dhe të fitoni më shumë biznes.",
+    "features": {
+      "proposals": {
+        "title": "Propozime Profesionale",
+        "description": "Krijoni propozime të bukura me markën tuaj që fitojnë klientë."
+      },
+      "clients": {
+        "title": "Menaxhimi i Klientëve",
+        "description": "Mbani të gjitha informacionet e klientëve të organizuara në një vend."
+      },
+      "analytics": {
+        "title": "Analitika & Njohuri",
+        "description": "Ndiqni shikimet e propozimeve, shkallët e pranimit dhe më shumë."
+      },
+      "security": {
+        "title": "Siguri Multi-tenant",
+        "description": "Siguri e nivelit enterprise për të dhënat e biznesit tuaj."
+      },
+      "fast": {
+        "title": "I Shpejtë & Efikas",
+        "description": "Shabllonet dhe automatizimi për të kursyer orë pune."
+      },
+      "multilang": {
+        "title": "Shumë-gjuhësh",
+        "description": "Krijoni propozime në çdo gjuhë që flasin klientët tuaj."
+      }
+    },
+    "pricingTitle": "Çmime të Thjeshta, Transparente",
+    "pricingDescription": "Zgjidhni planin që i përshtatet biznesit tuaj. Të gjitha planet përfshijnë një provë 14-ditore falas.",
+    "mostPopular": "Më i Popullarizuari",
+    "ctaTitle": "Gati për të Filluar?",
+    "ctaDescription": "Bashkohuni me mijëra profesionistë që përdorin OfferCraft për të fituar më shumë biznes.",
+    "footer": "Të gjitha të drejtat e rezervuara.",
+    "pricing": {
+      "starter": {
+        "name": "Fillestar",
+        "price": "€29",
+        "description": "Perfekt për freelancers",
+        "features": ["5 oferta/muaj", "1 përdorues", "Shabllone bazë", "Mbështetje me email"]
+      },
+      "professional": {
+        "name": "Profesional",
+        "price": "€79",
+        "description": "Për ekipe në rritje",
+        "features": ["Oferta pa limit", "5 përdorues", "Markë e personalizuar", "Mbështetje prioritare", "Analitika"]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Me porosi",
+        "description": "Për organizata të mëdha",
+        "features": ["Gjithçka në Pro", "Përdorues pa limit", "Akses API", "SSO", "Mbështetje e dedikuar"]
+      }
+    },
+    "dashboardPreview": "Pamja e panelit"
+  }
+}

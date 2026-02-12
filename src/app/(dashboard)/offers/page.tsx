@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { 
   Plus, 
   Search, 
@@ -86,19 +87,21 @@ const offers = [
   },
 ];
 
-const statusConfig: Record<string, { label: string; variant: string; color: string }> = {
-  DRAFT: { label: "Draft", variant: "secondary", color: "bg-gray-500" },
-  PENDING_APPROVAL: { label: "Pending", variant: "outline", color: "bg-yellow-500" },
-  SENT: { label: "Sent", variant: "default", color: "bg-blue-500" },
-  VIEWED: { label: "Viewed", variant: "warning", color: "bg-orange-500" },
-  ACCEPTED: { label: "Accepted", variant: "success", color: "bg-green-500" },
-  REJECTED: { label: "Rejected", variant: "destructive", color: "bg-red-500" },
-  WON: { label: "Won", variant: "success", color: "bg-green-600" },
-  LOST: { label: "Lost", variant: "destructive", color: "bg-red-600" },
-};
-
 export default function OffersPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const t = useTranslations("offers");
+  const tCommon = useTranslations("common");
+
+  const statusConfig: Record<string, { label: string; variant: string; color: string }> = {
+    DRAFT: { label: t("status.draft"), variant: "secondary", color: "bg-gray-500" },
+    PENDING_APPROVAL: { label: t("status.pendingApproval"), variant: "outline", color: "bg-yellow-500" },
+    SENT: { label: t("status.sent"), variant: "default", color: "bg-blue-500" },
+    VIEWED: { label: t("status.viewed"), variant: "warning", color: "bg-orange-500" },
+    ACCEPTED: { label: t("status.accepted"), variant: "success", color: "bg-green-500" },
+    REJECTED: { label: t("status.rejected"), variant: "destructive", color: "bg-red-500" },
+    WON: { label: t("status.won"), variant: "success", color: "bg-green-600" },
+    LOST: { label: t("status.lost"), variant: "destructive", color: "bg-red-600" },
+  };
 
   const filteredOffers = offers.filter(
     (offer) =>
@@ -119,15 +122,15 @@ export default function OffersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Offers</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t("title")}</h1>
           <p className="text-muted-foreground">
-            Manage your proposals and track their status
+            {t("description")}
           </p>
         </div>
         <Link href="/dashboard/offers/new">
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            New Offer
+            {t("newOffer")}
           </Button>
         </Link>
       </div>
@@ -137,7 +140,7 @@ export default function OffersPage() {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search offers..."
+            placeholder={t("searchOffers")}
             className="pl-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -145,16 +148,16 @@ export default function OffersPage() {
         </div>
         <Button variant="outline">
           <Filter className="h-4 w-4 mr-2" />
-          Filters
+          {tCommon("filters")}
         </Button>
       </div>
 
       {/* Offers List */}
       <Card>
         <CardHeader>
-          <CardTitle>All Offers</CardTitle>
+          <CardTitle>{t("allOffers")}</CardTitle>
           <CardDescription>
-            {filteredOffers.length} offer{filteredOffers.length !== 1 && "s"} found
+            {filteredOffers.length} {filteredOffers.length === 1 ? "offer" : "offers"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -189,7 +192,7 @@ export default function OffersPage() {
                       {formatCurrency(offer.total, offer.currency)}
                     </p>
                     <p className="text-sm text-muted-foreground">
-                      Valid until {new Date(offer.validUntil).toLocaleDateString()}
+                      {new Date(offer.validUntil).toLocaleDateString()}
                     </p>
                   </div>
                   <DropdownMenu>
@@ -201,26 +204,26 @@ export default function OffersPage() {
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem>
                         <Eye className="h-4 w-4 mr-2" />
-                        View
+                        {tCommon("view")}
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Edit className="h-4 w-4 mr-2" />
-                        Edit
+                        {tCommon("edit")}
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Copy className="h-4 w-4 mr-2" />
-                        Duplicate
+                        {tCommon("duplicate")}
                       </DropdownMenuItem>
                       {offer.status === "DRAFT" && (
                         <DropdownMenuItem>
                           <Send className="h-4 w-4 mr-2" />
-                          Send
+                          {tCommon("send")}
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="text-destructive">
                         <Trash2 className="h-4 w-4 mr-2" />
-                        Delete
+                        {tCommon("delete")}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -231,17 +234,17 @@ export default function OffersPage() {
             {filteredOffers.length === 0 && (
               <div className="text-center py-12">
                 <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium">No offers found</h3>
+                <h3 className="text-lg font-medium">{t("noOffers")}</h3>
                 <p className="text-muted-foreground mb-4">
                   {searchQuery
-                    ? "Try adjusting your search"
-                    : "Get started by creating your first offer"}
+                    ? t("noOffersSearch")
+                    : t("noOffersStart")}
                 </p>
                 {!searchQuery && (
                   <Link href="/dashboard/offers/new">
                     <Button>
                       <Plus className="h-4 w-4 mr-2" />
-                      Create Offer
+                      {t("createOffer")}
                     </Button>
                   </Link>
                 )}

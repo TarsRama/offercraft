@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FileText, Loader2, Eye, EyeOff, Building2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +14,7 @@ import { toast } from "sonner";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const t = useTranslations("auth");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -28,12 +30,12 @@ export default function RegisterPage() {
     e.preventDefault();
     
     if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords don't match");
+      toast.error(t("passwordsDontMatch"));
       return;
     }
 
     if (formData.password.length < 8) {
-      toast.error("Password must be at least 8 characters");
+      toast.error(t("passwordMinLength"));
       return;
     }
 
@@ -52,10 +54,10 @@ export default function RegisterPage() {
         throw new Error(data.error || "Registration failed");
       }
 
-      toast.success("Account created! Please sign in.");
+      toast.success(t("accountCreated"));
       router.push("/login");
     } catch (error: any) {
-      toast.error(error.message || "Something went wrong. Please try again.");
+      toast.error(error.message || t("somethingWrong"));
     } finally {
       setIsLoading(false);
     }
@@ -83,15 +85,15 @@ export default function RegisterPage() {
 
         <Card className="border-0 shadow-xl">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center">Create an account</CardTitle>
+            <CardTitle className="text-2xl text-center">{t("createAccount")}</CardTitle>
             <CardDescription className="text-center">
-              Start your 14-day free trial. No credit card required.
+              {t("createAccountDesc")}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="companyName">Company Name</Label>
+                <Label htmlFor="companyName">{t("companyName")}</Label>
                 <div className="relative">
                   <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -108,7 +110,7 @@ export default function RegisterPage() {
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name</Label>
+                  <Label htmlFor="firstName">{t("firstName")}</Label>
                   <Input
                     id="firstName"
                     placeholder="John"
@@ -119,7 +121,7 @@ export default function RegisterPage() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name</Label>
+                  <Label htmlFor="lastName">{t("lastName")}</Label>
                   <Input
                     id="lastName"
                     placeholder="Doe"
@@ -132,7 +134,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("email")}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -145,7 +147,7 @@ export default function RegisterPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("password")}</Label>
                 <div className="relative">
                   <Input
                     id="password"
@@ -171,12 +173,12 @@ export default function RegisterPage() {
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  At least 8 characters with uppercase, lowercase, and number
+                  {t("passwordRequirements")}
                 </p>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword">{t("confirmPassword")}</Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -190,21 +192,21 @@ export default function RegisterPage() {
 
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Create Account
+                {t("register")}
               </Button>
             </form>
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <p className="text-xs text-center text-muted-foreground">
-              By creating an account, you agree to our{" "}
-              <Link href="/terms" className="underline hover:text-primary">Terms of Service</Link>
-              {" "}and{" "}
-              <Link href="/privacy" className="underline hover:text-primary">Privacy Policy</Link>
+              {t("termsAgree")}{" "}
+              <Link href="/terms" className="underline hover:text-primary">{t("termsOfService")}</Link>
+              {" "}{t("and")}{" "}
+              <Link href="/privacy" className="underline hover:text-primary">{t("privacyPolicy")}</Link>
             </p>
             <div className="text-sm text-center text-muted-foreground">
-              Already have an account?{" "}
+              {t("haveAccount")}{" "}
               <Link href="/login" className="text-primary hover:underline">
-                Sign in
+                {t("login")}
               </Link>
             </div>
           </CardFooter>

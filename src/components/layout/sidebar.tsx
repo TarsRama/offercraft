@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import {
   LayoutDashboard,
   FileText,
@@ -19,34 +20,6 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 
-const navItems = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Offers",
-    href: "/dashboard/offers",
-    icon: FileText,
-  },
-  {
-    title: "Clients",
-    href: "/dashboard/clients",
-    icon: Users,
-  },
-  {
-    title: "Templates",
-    href: "/dashboard/templates",
-    icon: Package,
-  },
-  {
-    title: "Settings",
-    href: "/dashboard/settings",
-    icon: Settings,
-  },
-];
-
 interface SidebarProps {
   className?: string;
 }
@@ -54,6 +27,35 @@ interface SidebarProps {
 export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const t = useTranslations("nav");
+
+  const navItems = [
+    {
+      title: t("dashboard"),
+      href: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      title: t("offers"),
+      href: "/dashboard/offers",
+      icon: FileText,
+    },
+    {
+      title: t("clients"),
+      href: "/dashboard/clients",
+      icon: Users,
+    },
+    {
+      title: t("templates"),
+      href: "/dashboard/templates",
+      icon: Package,
+    },
+    {
+      title: t("settings"),
+      href: "/dashboard/settings",
+      icon: Settings,
+    },
+  ];
 
   return (
     <motion.aside
@@ -124,7 +126,7 @@ export function Sidebar({ className }: SidebarProps) {
             className="flex items-center space-x-3 rounded-lg px-3 py-2 text-muted-foreground hover:bg-accent hover:text-foreground transition-colors"
           >
             <Bell className="h-5 w-5 shrink-0" />
-            {!collapsed && <span>Notifications</span>}
+            {!collapsed && <span>{t("notifications")}</span>}
           </motion.div>
         </Link>
         <form action="/api/auth/signout" method="POST">
@@ -135,7 +137,7 @@ export function Sidebar({ className }: SidebarProps) {
             className="flex w-full items-center space-x-3 rounded-lg px-3 py-2 text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
           >
             <LogOut className="h-5 w-5 shrink-0" />
-            {!collapsed && <span>Sign Out</span>}
+            {!collapsed && <span>{t("signOut")}</span>}
           </motion.button>
         </form>
       </div>

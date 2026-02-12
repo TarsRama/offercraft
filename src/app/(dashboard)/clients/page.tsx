@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { 
   Plus, 
   Search, 
@@ -83,14 +84,16 @@ const clients = [
   },
 ];
 
-const statusConfig: Record<string, { variant: string }> = {
-  LEAD: { variant: "outline" },
-  ACTIVE: { variant: "success" },
-  INACTIVE: { variant: "secondary" },
-};
-
 export default function ClientsPage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const t = useTranslations("clients");
+  const tCommon = useTranslations("common");
+
+  const statusConfig: Record<string, { label: string; variant: string }> = {
+    LEAD: { label: t("status.lead"), variant: "outline" },
+    ACTIVE: { label: t("status.active"), variant: "success" },
+    INACTIVE: { label: t("status.inactive"), variant: "secondary" },
+  };
 
   const filteredClients = clients.filter(
     (client) =>
@@ -119,15 +122,15 @@ export default function ClientsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Clients</h1>
+          <h1 className="text-2xl font-bold tracking-tight">{t("title")}</h1>
           <p className="text-muted-foreground">
-            Manage your client relationships
+            {t("description")}
           </p>
         </div>
         <Link href="/dashboard/clients/new">
           <Button>
             <Plus className="h-4 w-4 mr-2" />
-            Add Client
+            {t("addClient")}
           </Button>
         </Link>
       </div>
@@ -137,7 +140,7 @@ export default function ClientsPage() {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search clients..."
+            placeholder={t("searchClients")}
             className="pl-10"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -145,7 +148,7 @@ export default function ClientsPage() {
         </div>
         <Button variant="outline">
           <Filter className="h-4 w-4 mr-2" />
-          Filters
+          {tCommon("filters")}
         </Button>
       </div>
 
@@ -170,7 +173,7 @@ export default function ClientsPage() {
                     <div>
                       <CardTitle className="text-lg">{client.companyName}</CardTitle>
                       <Badge variant={statusConfig[client.status].variant as any} className="mt-1">
-                        {client.status}
+                        {statusConfig[client.status].label}
                       </Badge>
                     </div>
                   </div>
@@ -183,16 +186,16 @@ export default function ClientsPage() {
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem>
                         <Eye className="h-4 w-4 mr-2" />
-                        View Details
+                        {tCommon("viewDetails")}
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <Edit className="h-4 w-4 mr-2" />
-                        Edit
+                        {tCommon("edit")}
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem className="text-destructive">
                         <Trash2 className="h-4 w-4 mr-2" />
-                        Delete
+                        {tCommon("delete")}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -213,11 +216,11 @@ export default function ClientsPage() {
                 </div>
                 <div className="pt-3 border-t flex justify-between text-sm">
                   <div>
-                    <p className="text-muted-foreground">Offers</p>
+                    <p className="text-muted-foreground">{t("offers")}</p>
                     <p className="font-medium">{client.offersCount}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-muted-foreground">Total Value</p>
+                    <p className="text-muted-foreground">{tCommon("totalValue")}</p>
                     <p className="font-medium">{formatCurrency(client.totalValue)}</p>
                   </div>
                 </div>
@@ -231,17 +234,17 @@ export default function ClientsPage() {
         <Card>
           <CardContent className="text-center py-12">
             <Building2 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-medium">No clients found</h3>
+            <h3 className="text-lg font-medium">{t("noClients")}</h3>
             <p className="text-muted-foreground mb-4">
               {searchQuery
-                ? "Try adjusting your search"
-                : "Get started by adding your first client"}
+                ? t("noClientsSearch")
+                : t("noClientsStart")}
             </p>
             {!searchQuery && (
               <Link href="/dashboard/clients/new">
                 <Button>
                   <Plus className="h-4 w-4 mr-2" />
-                  Add Client
+                  {t("addClient")}
                 </Button>
               </Link>
             )}

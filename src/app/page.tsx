@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { 
   FileText, 
   Users, 
@@ -13,63 +14,68 @@ import {
   Check
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const features = [
-  {
-    icon: FileText,
-    title: "Professional Proposals",
-    description: "Create stunning, branded proposals that win clients.",
-  },
-  {
-    icon: Users,
-    title: "Client Management",
-    description: "Keep all client information organized in one place.",
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics & Insights",
-    description: "Track proposal views, acceptance rates, and more.",
-  },
-  {
-    icon: Shield,
-    title: "Multi-tenant Security",
-    description: "Enterprise-grade security for your business data.",
-  },
-  {
-    icon: Zap,
-    title: "Fast & Efficient",
-    description: "Templates and automation to save hours of work.",
-  },
-  {
-    icon: Globe,
-    title: "Multi-language",
-    description: "Create proposals in any language your clients speak.",
-  },
-];
-
-const pricingTiers = [
-  {
-    name: "Starter",
-    price: "€29",
-    description: "Perfect for freelancers",
-    features: ["5 offers/month", "1 user", "Basic templates", "Email support"],
-  },
-  {
-    name: "Professional",
-    price: "€79",
-    description: "For growing teams",
-    features: ["Unlimited offers", "5 users", "Custom branding", "Priority support", "Analytics"],
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    description: "For large organizations",
-    features: ["Everything in Pro", "Unlimited users", "API access", "SSO", "Dedicated support"],
-  },
-];
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export default function LandingPage() {
+  const t = useTranslations("landing");
+  const tAuth = useTranslations("auth");
+  const tCommon = useTranslations("common");
+
+  const features = [
+    {
+      icon: FileText,
+      title: t("features.proposals.title"),
+      description: t("features.proposals.description"),
+    },
+    {
+      icon: Users,
+      title: t("features.clients.title"),
+      description: t("features.clients.description"),
+    },
+    {
+      icon: BarChart3,
+      title: t("features.analytics.title"),
+      description: t("features.analytics.description"),
+    },
+    {
+      icon: Shield,
+      title: t("features.security.title"),
+      description: t("features.security.description"),
+    },
+    {
+      icon: Zap,
+      title: t("features.fast.title"),
+      description: t("features.fast.description"),
+    },
+    {
+      icon: Globe,
+      title: t("features.multilang.title"),
+      description: t("features.multilang.description"),
+    },
+  ];
+
+  const pricingTiers = [
+    {
+      name: t("pricing.starter.name"),
+      price: t("pricing.starter.price"),
+      description: t("pricing.starter.description"),
+      features: t.raw("pricing.starter.features") as string[],
+    },
+    {
+      name: t("pricing.professional.name"),
+      price: t("pricing.professional.price"),
+      description: t("pricing.professional.description"),
+      features: t.raw("pricing.professional.features") as string[],
+      popular: true,
+    },
+    {
+      name: t("pricing.enterprise.name"),
+      price: t("pricing.enterprise.price"),
+      description: t("pricing.enterprise.description"),
+      features: t.raw("pricing.enterprise.features") as string[],
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
       {/* Header */}
@@ -85,18 +91,25 @@ export default function LandingPage() {
           </Link>
           <nav className="hidden md:flex items-center space-x-8">
             <Link href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Features
+              {t("featuresTitle")}
             </Link>
             <Link href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-              Pricing
+              {t("pricingTitle")}
             </Link>
+            <LanguageSwitcher />
             <Link href="/login">
-              <Button variant="ghost">Sign In</Button>
+              <Button variant="ghost">{tAuth("login")}</Button>
             </Link>
             <Link href="/register">
-              <Button>Get Started</Button>
+              <Button>{tCommon("getStarted")}</Button>
             </Link>
           </nav>
+          <div className="md:hidden flex items-center space-x-2">
+            <LanguageSwitcher />
+            <Link href="/login">
+              <Button variant="ghost" size="sm">{tAuth("login")}</Button>
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -109,25 +122,24 @@ export default function LandingPage() {
             transition={{ duration: 0.5 }}
           >
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-              Create Proposals That
+              {t("heroTitle")}
               <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">
-                {" "}Win Clients
+                {" "}{t("heroTitleHighlight")}
               </span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-              Professional offer and proposal management for construction, engineering, 
-              and professional services. Save time, look professional, close more deals.
+              {t("heroDescription")}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/register">
                 <Button size="lg" className="text-lg px-8">
-                  Start Free Trial
+                  {t("startFreeTrial")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
               <Link href="#features">
                 <Button size="lg" variant="outline" className="text-lg px-8">
-                  Learn More
+                  {tCommon("learnMore")}
                 </Button>
               </Link>
             </div>
@@ -144,7 +156,7 @@ export default function LandingPage() {
               <div className="bg-card rounded-lg h-[400px] flex items-center justify-center border">
                 <div className="text-center text-muted-foreground">
                   <FileText className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                  <p className="text-lg">Dashboard Preview</p>
+                  <p className="text-lg">{t("dashboardPreview")}</p>
                 </div>
               </div>
             </div>
@@ -156,9 +168,9 @@ export default function LandingPage() {
       <section id="features" className="py-20 px-4">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Everything You Need</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("featuresTitle")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Powerful features to help you create professional proposals faster and win more business.
+              {t("featuresDescription")}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -186,9 +198,9 @@ export default function LandingPage() {
       <section id="pricing" className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Simple, Transparent Pricing</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("pricingTitle")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Choose the plan that fits your business. All plans include a 14-day free trial.
+              {t("pricingDescription")}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -205,14 +217,16 @@ export default function LandingPage() {
               >
                 {tier.popular && (
                   <span className="bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
-                    Most Popular
+                    {t("mostPopular")}
                   </span>
                 )}
                 <h3 className="text-xl font-semibold mt-4">{tier.name}</h3>
                 <p className="text-muted-foreground text-sm">{tier.description}</p>
                 <div className="my-4">
                   <span className="text-4xl font-bold">{tier.price}</span>
-                  {tier.price !== "Custom" && <span className="text-muted-foreground">/month</span>}
+                  {tier.price !== "Custom" && tier.price !== "Me porosi" && (
+                    <span className="text-muted-foreground">/{tCommon("month")}</span>
+                  )}
                 </div>
                 <ul className="space-y-3 mb-6">
                   {tier.features.map((feature) => (
@@ -223,7 +237,7 @@ export default function LandingPage() {
                   ))}
                 </ul>
                 <Button className="w-full" variant={tier.popular ? "default" : "outline"}>
-                  Get Started
+                  {tCommon("getStarted")}
                 </Button>
               </motion.div>
             ))}
@@ -234,13 +248,13 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="py-20 px-4">
         <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+          <h2 className="text-3xl font-bold mb-4">{t("ctaTitle")}</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-8">
-            Join thousands of professionals using OfferCraft to win more business.
+            {t("ctaDescription")}
           </p>
           <Link href="/register">
             <Button size="lg" className="text-lg px-8">
-              Start Your Free Trial
+              {t("startFreeTrial")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </Link>
@@ -258,7 +272,7 @@ export default function LandingPage() {
               <span className="font-bold">OfferCraft</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              © 2024 OfferCraft. All rights reserved.
+              © 2024 OfferCraft. {t("footer")}
             </p>
           </div>
         </div>
