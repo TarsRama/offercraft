@@ -22,32 +22,60 @@ const recentOffers = [
     title: "Office Renovation Project",
     client: "Acme Corp",
     status: "SENT",
-    total: "€45,000",
+    total: 45000,
+    currency: "EUR",
     date: "2 hours ago",
+    viewedAt: null,
   },
   {
     id: "2",
     title: "Website Development",
     client: "TechStart Inc",
     status: "DRAFT",
-    total: "€12,500",
+    total: 12500,
+    currency: "EUR",
     date: "5 hours ago",
+    viewedAt: null,
   },
   {
     id: "3",
     title: "Construction Materials",
     client: "BuildRight LLC",
     status: "ACCEPTED",
-    total: "€89,000",
+    total: 89000,
+    currency: "EUR",
     date: "1 day ago",
+    viewedAt: "2024-01-12",
   },
   {
     id: "4",
     title: "Consulting Services",
     client: "Global Partners",
     status: "VIEWED",
-    total: "€8,500",
+    total: 8500,
+    currency: "EUR",
     date: "2 days ago",
+    viewedAt: "2024-01-13",
+  },
+  {
+    id: "5",
+    title: "Marketing Campaign",
+    client: "Creative Agency",
+    status: "REJECTED",
+    total: 25000,
+    currency: "EUR",
+    date: "3 days ago",
+    viewedAt: "2024-01-11",
+  },
+  {
+    id: "6",
+    title: "Software License",
+    client: "Tech Solutions",
+    status: "WON",
+    total: 15000,
+    currency: "EUR",
+    date: "1 week ago",
+    viewedAt: "2024-01-08",
   },
 ];
 
@@ -201,7 +229,12 @@ export default function DashboardPage() {
                         {getStatusLabel(offer.status)}
                       </Badge>
                       <div className="text-right">
-                        <p className="font-medium">{offer.total}</p>
+                        <p className="font-medium">
+                          {new Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: offer.currency,
+                          }).format(offer.total)}
+                        </p>
                         <p className="text-xs text-muted-foreground">{offer.date}</p>
                       </div>
                     </div>
