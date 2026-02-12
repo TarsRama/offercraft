@@ -14,6 +14,9 @@ import {
   ChevronRight,
   LogOut,
   Bell,
+  BarChart3,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -27,6 +30,7 @@ interface SidebarProps {
 export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const [templatesExpanded, setTemplatesExpanded] = useState(false);
   const t = useTranslations("nav");
 
   const navItems = [
@@ -46,9 +50,25 @@ export function Sidebar({ className }: SidebarProps) {
       icon: Users,
     },
     {
-      title: t("templates"),
+      title: "Templates",
       href: "/dashboard/templates",
       icon: Package,
+      hasSubmenu: true,
+      submenu: [
+        {
+          title: "Articles",
+          href: "/dashboard/templates/articles",
+        },
+        {
+          title: "Offers",
+          href: "/dashboard/templates/offers",
+        },
+      ],
+    },
+    {
+      title: "Analytics",
+      href: "/dashboard/analytics",
+      icon: BarChart3,
     },
     {
       title: t("settings"),
@@ -96,6 +116,59 @@ export function Sidebar({ className }: SidebarProps) {
       <nav className="flex-1 space-y-1 p-4">
         {navItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          
+          if (item.hasSubmenu && !collapsed) {
+            const isExpanded = templatesExpanded || pathname.startsWith(item.href);
+            
+            return (
+              <div key={item.href}>
+                <motion.div
+                  whileHover={{ x: 4 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={cn(
+                    "flex items-center space-x-3 rounded-lg px-3 py-2 transition-colors cursor-pointer",
+                    isActive
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  )}
+                  onClick={() => setTemplatesExpanded(!templatesExpanded)}
+                >
+                  <item.icon className="h-5 w-5 shrink-0" />
+                  <span className="flex-1">{item.title}</span>
+                  {isExpanded ? (
+                    <ChevronUp className="h-4 w-4" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4" />
+                  )}
+                </motion.div>
+                
+                {isExpanded && item.submenu && (
+                  <div className="ml-8 mt-1 space-y-1">
+                    {item.submenu.map((subItem) => {
+                      const isSubActive = pathname === subItem.href;
+                      return (
+                        <Link key={subItem.href} href={subItem.href}>
+                          <motion.div
+                            whileHover={{ x: 4 }}
+                            whileTap={{ scale: 0.98 }}
+                            className={cn(
+                              "flex items-center rounded-lg px-3 py-2 text-sm transition-colors",
+                              isSubActive
+                                ? "bg-primary text-primary-foreground"
+                                : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                            )}
+                          >
+                            {subItem.title}
+                          </motion.div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          }
+          
           return (
             <Link key={item.href} href={item.href}>
               <motion.div

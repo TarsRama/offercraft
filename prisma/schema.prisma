@@ -78,6 +78,8 @@ model Tenant {
   clients          Client[]
   offers           Offer[]
   articleTemplates ArticleTemplate[]
+  offerTemplates   OfferTemplate[]
+  emailTemplates   EmailTemplate[]
 
   @@map("tenants")
 }
@@ -112,6 +114,7 @@ model User {
   // Relations
   tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   offers        Offer[]        @relation("CreatedOffers")
+  offerVersions OfferVersion[]
   notifications Notification[]
   accounts      Account[]
   sessions      Session[]
@@ -291,12 +294,16 @@ model Offer {
   updatedAt          DateTime    @updatedAt
 
   // Relations
-  tenant      Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  client      Client            @relation(fields: [clientId], references: [id])
-  createdBy   User              @relation("CreatedOffers", fields: [createdById], references: [id])
-  sections    OfferSection[]
-  attachments OfferAttachment[]
-  activities  OfferActivity[]
+  tenant          Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  client          Client            @relation(fields: [clientId], references: [id])
+  createdBy       User              @relation("CreatedOffers", fields: [createdById], references: [id])
+  sections        OfferSection[]
+  attachments     OfferAttachment[]
+  activities      OfferActivity[]
+  versions        OfferVersion[]
+  paymentSchedule PaymentSchedule[]
+  signature       Signature?
+  emailLogs       EmailLog[]
 
   @@unique([tenantId, offerNumber])
   @@index([tenantId])
@@ -399,6 +406,107 @@ model OfferActivity {
 
   @@index([offerId])
   @@map("offer_activities")
+}
+
+// ===========================================
+// TEMPLATES & VERSIONING (PHASE 2)
+// ===========================================
+
+model OfferTemplate {
+  id          String   @id @default(cuid())
+  tenantId    String
+  name        String
+  description String?
+  category    String?
+  sections    Json     // Full sections/articles structure
+  terms       String?
+  validityDays Int     @default(30)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("offer_templates")
+}
+
+model OfferVersion {
+  id        String   @id @default(cuid())
+  offerId   String
+  version   Int
+  data      Json     // Full offer snapshot
+  changedBy String
+  changeNote String?
+  createdAt DateTime @default(now())
+  
+  offer     Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [changedBy], references: [id])
+
+  @@index([offerId])
+  @@map("offer_versions")
+}
+
+model PaymentSchedule {
+  id          String   @id @default(cuid())
+  offerId     String
+  name        String   // "Deposit", "Milestone 1", "Final Payment"
+  percentage  Decimal  @db.Decimal(5, 2) // Percentage of total
+  amount      Decimal? @db.Decimal(12, 2) // Or fixed amount
+  dueDate     DateTime?
+  description String?
+  status      String   @default("pending") // pending, invoiced, paid
+  order       Int
+  createdAt   DateTime @default(now())
+  
+  offer       Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+
+  @@index([offerId])
+  @@map("payment_schedules")
+}
+
+model Signature {
+  id          String   @id @default(cuid())
+  offerId     String   @unique
+  signerName  String
+  signerEmail String
+  signatureData String // Base64 signature image
+  ipAddress   String?
+  userAgent   String?
+  signedAt    DateTime @default(now())
+  
+  offer       Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+
+  @@map("signatures")
+}
+
+model EmailTemplate {
+  id        String   @id @default(cuid())
+  tenantId  String
+  name      String
+  subject   String
+  body      String   // HTML template with variables
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+  
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId])
+  @@map("email_templates")
+}
+
+model EmailLog {
+  id        String   @id @default(cuid())
+  offerId   String
+  to        String
+  subject   String
+  status    String   // sent, delivered, opened, clicked
+  sentAt    DateTime @default(now())
+  openedAt  DateTime?
+  
+  offer     Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+
+  @@index([offerId])
+  @@map("email_logs")
 }
 
 // ===========================================
