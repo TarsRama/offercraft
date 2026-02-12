@@ -1,10 +1,11 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { type DefaultSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import type { UserRole } from "@prisma/client";
 
+// Extend the built-in session types
 declare module "next-auth" {
   interface Session {
     user: {
@@ -15,7 +16,7 @@ declare module "next-auth" {
       role: UserRole;
       tenantId: string;
       avatar?: string | null;
-    };
+    } & DefaultSession["user"];
   }
 
   interface User {
@@ -29,16 +30,15 @@ declare module "next-auth" {
   }
 }
 
-declare module "next-auth/jwt" {
-  interface JWT {
-    id: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    role: UserRole;
-    tenantId: string;
-    avatar?: string | null;
-  }
+// JWT token types
+interface JWTToken {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: UserRole;
+  tenantId: string;
+  avatar?: string | null;
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -105,7 +105,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.email = user.email;
+        token.email = user.email as string;
         token.firstName = user.firstName;
         token.lastName = user.lastName;
         token.role = user.role;
@@ -116,13 +116,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       session.user = {
-        id: token.id,
-        email: token.email,
-        firstName: token.firstName,
-        lastName: token.lastName,
-        role: token.role,
-        tenantId: token.tenantId,
-        avatar: token.avatar,
+        id: token.id as string,
+        email: token.email as string,
+        firstName: token.firstName as string,
+        lastName: token.lastName as string,
+        role: token.role as UserRole,
+        tenantId: token.tenantId as string,
+        avatar: token.avatar as string | null | undefined,
       };
       return session;
     },
