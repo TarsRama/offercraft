@@ -116,6 +116,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }) {
       session.user = {
+        ...session.user,
         id: token.id as string,
         email: token.email as string,
         firstName: token.firstName as string,
