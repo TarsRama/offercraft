@@ -48,6 +48,40 @@ const mockTenants: MockTenant[] = [
   }
 ];
 
+// Mock clients data
+const mockClients: any[] = [
+  {
+    id: 'client-1',
+    tenantId: 'tenant-1',
+    companyName: 'Acme Corp',
+    email: 'contact@acme.com',
+    phone: '+1 (555) 123-4567',
+    status: 'ACTIVE',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 'client-2',
+    tenantId: 'tenant-1',
+    companyName: 'TechStart Inc',
+    email: 'hello@techstart.com',
+    phone: '+1 (555) 234-5678',
+    status: 'ACTIVE',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 'client-3',
+    tenantId: 'tenant-1',
+    companyName: 'BuildRight LLC',
+    email: 'info@buildright.com',
+    phone: '+1 (555) 345-6789',
+    status: 'LEAD',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
 export const mockPrisma = {
   user: {
     findFirst: async ({ where, include }: any) => {
@@ -129,19 +163,101 @@ export const mockPrisma = {
     },
   },
   client: {
-    findMany: async ({ where }: any) => {
-      return []; // Empty array for now
+    findMany: async ({ where, include }: any) => {
+      let filteredClients = mockClients.filter(c => 
+        !where?.tenantId || c.tenantId === where.tenantId
+      );
+
+      if (where?.status) {
+        filteredClients = filteredClients.filter(c => c.status === where.status);
+      }
+
+      if (where?.OR) {
+        const searchTerm = where.OR[0]?.companyName?.contains?.toLowerCase();
+        if (searchTerm) {
+          filteredClients = filteredClients.filter(c => 
+            c.companyName.toLowerCase().includes(searchTerm) ||
+            c.email?.toLowerCase().includes(searchTerm)
+          );
+        }
+      }
+
+      return filteredClients.map(client => ({
+        ...client,
+        contacts: include?.contacts ? [] : undefined,
+        addresses: include?.addresses ? [] : undefined,
+        offers: include?.offers ? [] : undefined,
+      }));
     },
     count: async ({ where }: any) => {
-      return 0;
+      let filteredClients = mockClients.filter(c => 
+        !where?.tenantId || c.tenantId === where.tenantId
+      );
+
+      if (where?.status) {
+        filteredClients = filteredClients.filter(c => c.status === where.status);
+      }
+
+      return filteredClients.length;
     },
     create: async (data: any) => {
-      return {
+      const newClient = {
         id: `client-${Date.now()}`,
+        tenantId: data.data?.tenantId || data.tenantId,
+        companyName: data.data?.companyName || data.companyName,
+        email: data.data?.email || data.email,
+        phone: data.data?.phone || data.phone,
+        status: data.data?.status || data.status || 'LEAD',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      mockClients.push(newClient);
+      return newClient;
+    },
+  },
+  offerSection: {
+    create: async (data: any) => {
+      return {
+        id: `section-${Date.now()}`,
         ...data.data,
         createdAt: new Date(),
         updatedAt: new Date(),
       };
+    },
+    createMany: async (data: any) => {
+      return { count: data.data?.length || 0 };
+    },
+  },
+  article: {
+    create: async (data: any) => {
+      return {
+        id: `article-${Date.now()}`,
+        ...data.data,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+    },
+    createMany: async (data: any) => {
+      return { count: data.data?.length || 0 };
+    },
+  },
+  offerActivity: {
+    create: async (data: any) => {
+      return {
+        id: `activity-${Date.now()}`,
+        ...data.data,
+        createdAt: new Date(),
+      };
+    },
+  },
+  clientContact: {
+    createMany: async (data: any) => {
+      return { count: data.data?.length || 0 };
+    },
+  },
+  clientAddress: {
+    createMany: async (data: any) => {
+      return { count: data.data?.length || 0 };
     },
   },
   $transaction: async (operations: any) => {
@@ -153,6 +269,11 @@ export const mockPrisma = {
         tenant: mockPrisma.tenant,
         offer: mockPrisma.offer,
         client: mockPrisma.client,
+        offerSection: mockPrisma.offerSection,
+        article: mockPrisma.article,
+        offerActivity: mockPrisma.offerActivity,
+        clientContact: mockPrisma.clientContact,
+        clientAddress: mockPrisma.clientAddress,
       };
       return await operations(tx);
     } else {
